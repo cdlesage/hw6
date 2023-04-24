@@ -31,7 +31,7 @@ NCandSC = arrange(NCandSC, desc(`AvgCdia (m)`))
 ## Grouping and summarizing to find average crown size per genus
 avg_crown = group_by(NCandSC, Genus) %>% 
   summarize(MeanCrownSize = mean(`AvgCdia (m)`))
-## Arranding in descending order
+## Arranging in descending order
 avg_crown = arrange(avg_crown, desc(MeanCrownSize))
 
 ## Extra Credit Question 1
@@ -45,3 +45,10 @@ merged = merge(avg_age, avg_crown, by="Genus")
 ## Adding a column for rate of growth and arranging in descending order
 merged[,c("RateofGrowth")] = merged$MeanCrownSize / merged$MeanAge
 merged = arrange(merged, desc(RateofGrowth))
+
+## Extra Credit Question 3
+NCandSC[,c("Species")] = str_extract(NCandSC$ScientificName, "\\b[:lower:]+($|\\b)")
+
+## Using group by to make a table of counts of distinct species per Genus
+species_per_genus = group_by(NCandSC, Genus) %>%
+  summarize(SpeciesCount=n_distinct(Species))
