@@ -1,5 +1,6 @@
 library(tidyverse)
 library(dplyr)
+library(ggplot2)
 
 data = read_csv("RDS-2016-0005/Data/TS3_raw_tree_data.csv")
 
@@ -38,3 +39,9 @@ avg_age = group_by(NCandSC, Genus) %>%
   summarize(MeanAge = mean(Age))
 avg_age = arrange(avg_age, desc(MeanAge))
 
+## Extra Credit Question 2
+## Merging the two columns above
+merged = merge(avg_age, avg_crown, by="Genus")
+## Adding a column for rate of growth and arranging in descending order
+merged[,c("RateofGrowth")] = merged$MeanCrownSize / merged$MeanAge
+merged = arrange(merged, desc(RateofGrowth))
