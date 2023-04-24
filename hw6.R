@@ -13,3 +13,8 @@ data = data %>% relocate(State, .after=City)
 ## Creates new table to show the counts
 state_counts = group_by(data, State) %>% 
   summarize(count= n())
+
+## Question 2
+NCandSC = filter(data, State == "NC"| State == "SC")
+
+NCandSC$City
