@@ -32,3 +32,9 @@ avg_crown = group_by(NCandSC, Genus) %>%
   summarize(MeanCrownSize = mean(`AvgCdia (m)`))
 ## Arranding in descending order
 avg_crown = arrange(avg_crown, desc(MeanCrownSize))
+
+## Extra Credit Question 1
+avg_age = group_by(NCandSC, Genus) %>% 
+  summarize(MeanAge = mean(Age))
+avg_age = arrange(avg_age, desc(MeanAge))
+
